@@ -1,13 +1,50 @@
+
 <html>
+<head>
+</head>
+<body>
+<br>
+<h1> Brewstagram </h1>
 <video id="player" controls autoplay></video>
 <button id="capture">Capture</button>
 <canvas id="canvas" width=320 height=240></canvas>
+<button id="copy1" onClick=storeImage()> Copy to Feed </button>
+<br>
+<canvas id="destinationCanvas" width=320 height=240></canvas>
+<canvas id="destinationCanvas2" width=320 height=240></canvas>
+<canvas id="destinationCanvas3" width=320 height=240></canvas>
+<canvas id="destinationCanvas4" width=320 height=240></canvas>
 <script>
   const player = document.getElementById('player');
+  const captureButton = document.getElementById('capture');
   const canvas = document.getElementById('canvas');
   const context = canvas.getContext('2d');
-  const captureButton = document.getElementById('capture');
+  var destinationCtx = document.getElementById('destinationCanvas');
+  const context1 = destinationCanvas.getContext('2d');
+  var destination2Ctx = document.getElementById('destinationCanvas2');
+  const context2 = destinationCanvas2.getContext('2d');
+  var destination3Ctx = document.getElementById('destinationCanvas3');
+  const context3 = destinationCanvas3.getContext('2d');
+  var destination4Ctx = document.getElementById('destinationCanvas4');
+  const context4 = destinationCanvas4.getContext('2d');
+  
 
+function storeImage() {
+//draw the image
+
+if(confirm('Store Image?')) {
+context1.filter = 'sepia(50%)';
+context1.drawImage(canvas,0,0, canvas.width, canvas.height);
+context2.filter = 'blur(10%)';
+context2.drawImage(canvas,0,0, canvas.width, canvas.height);
+context3.filter = 'brightness(50%)';
+context3.drawImage(canvas,0,0, canvas.width, canvas.height);
+context4.filter = 'invert(100%)';
+context4.drawImage(canvas,0,0, canvas.width, canvas.height);
+}
+}
+//done
+	
   const constraints = {
     video: true,
   };
@@ -16,6 +53,8 @@
     // Draw the video frame to the canvas.
     context.drawImage(player, 0, 0, canvas.width, canvas.height);
   });
+  
+
 
   // Attach the video stream to the video element and autoplay.
   navigator.mediaDevices.getUserMedia(constraints)
@@ -23,4 +62,5 @@
       player.srcObject = stream;
     });
 </script>
+</body>
 </html>
